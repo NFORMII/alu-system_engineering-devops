@@ -1,0 +1,30 @@
+#!/bin/bash
+# This script installs and configures Nginx on an Ubuntu machine.
+
+# Update package list and install nginx
+apt-get update && apt-get install -y nginx
+
+# Create an HTML file that contains the required string
+echo "Holberton School for the win!" > /var/www/html/index.html
+
+# Configure Nginx to listen on port 80
+cat <<EOL > /etc/nginx/sites-available/default
+server {
+    listen 80;
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOL
+
+# Test the Nginx configuration
+nginx -t
+
+# Start Nginx without using systemctl
+nginx
+
+# Ensure the server is responding correctly
+curl -s http://localhost
