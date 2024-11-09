@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
-# Install Nginx
+# This script installs and configures Nginx to serve a page with the content "Holberton School for the win!"
+
+# Update package list and install Nginx
 apt-get update -y
 apt-get install nginx -y
 
 # Ensure Nginx is listening on port 80
 sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
 
-# Modify the default Nginx page
+# Modify the default Nginx page with the required content
 echo "Holberton School for the win!" > /var/www/html/index.html
 
-# Ensure the Nginx service is reloaded without using systemctl
+# Ensure Nginx configuration is correct and reload the service
 nginx -s reload
 
-# Output success message
+# Output success message (for debugging purposes)
 echo "Nginx has been installed and configured!"
 
